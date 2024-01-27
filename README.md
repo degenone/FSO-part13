@@ -1,4 +1,4 @@
-# My answers for the exercises in part 10 of Full Stack Open
+# My answers for the exercises in part 13 of Full Stack Open
 
 - [1-3](https://fullstackopen.com/en/part13/using_relational_databases_with_sequelize#tasks-13-1-13-3)
 - [4](https://fullstackopen.com/en/part13/using_relational_databases_with_sequelize#task-13-4)
