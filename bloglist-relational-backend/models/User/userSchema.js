@@ -1,25 +1,24 @@
 const { DataTypes } = require('sequelize');
 
-const blogSchema = {
+const userSchema = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    author: { type: DataTypes.STRING },
-    url: {
-        type: DataTypes.TEXT,
+    username: {
+        type: DataTypes.STRING,
+        unique: true,
         allowNull: false,
     },
-    title: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    likes: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
+    password: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
 };
 
-module.exports = blogSchema;
+module.exports = userSchema;

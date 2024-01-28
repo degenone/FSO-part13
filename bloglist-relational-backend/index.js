@@ -5,12 +5,14 @@ const blogRouter = require('./controllers/blogs');
 const { connectToDatabase } = require('./utils/db');
 const { PORT } = require('./utils/config');
 const { errorHandler } = require('./utils/middleware');
+const userRouter = require('./controllers/users');
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/api/blogs', blogRouter);
+app.use('/api/users', userRouter);
 
 app.use(errorHandler);
 
