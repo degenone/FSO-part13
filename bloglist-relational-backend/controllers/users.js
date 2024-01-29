@@ -24,7 +24,7 @@ userRouter.post('/', async (req, res) => {
 });
 
 userRouter.put('/:username', getToken, async (req, res) => {
-    const { username } = req.body;
+    const { usernameUpdate } = req.body;
     const user = await User.findOne({
         where: {
             username: req.params.username,
@@ -36,7 +36,7 @@ userRouter.put('/:username', getToken, async (req, res) => {
     if (user.id !== req.decodedToken.id) {
         return res.status(403).end();
     }
-    user.username = username;
+    user.username = usernameUpdate;
     await user.save();
     res.json({ name: user.name, username: user.username });
 });
