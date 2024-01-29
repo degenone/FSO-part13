@@ -7,7 +7,7 @@ const { getToken } = require('../utils/middleware');
 const getBlogByPk = async (req, res, next) => {
     req.blog = await Blog.findByPk(req.params.id);
     if (!req.blog) {
-        return res.status(404).end();
+        return res.status(404).json({ error: 'blog not found' });
     }
     next();
 };
@@ -23,7 +23,10 @@ blogRouter.post('/', getToken, async (req, res) => {
     res.json(blog);
 });
 
-blogRouter.delete('/:id', getBlogByPk, async (req, res) => {
+blogRouter.delete('/:id', getBlogByPk, getToken, async (req, res) => {
+    if (req.blog.userId !== req.decodedToken.id) {
+        return res.status(403).json({ error: 'permission denied' });
+    }
     await req.blog.destroy();
     res.status(204).end();
 });
