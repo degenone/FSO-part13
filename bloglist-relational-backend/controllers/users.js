@@ -2,11 +2,15 @@ const userRouter = require('express').Router();
 require('express-async-errors');
 const bcrypt = require('bcrypt');
 
-const { User } = require('../models');
+const { User, Blog } = require('../models');
 const { getToken } = require('../utils/middleware');
 
 userRouter.get('/', async (req, res) => {
     const users = await User.findAll({
+        include: {
+            model: Blog,
+            attributes: { exclude: ['userId'] },
+        },
         attributes: { exclude: ['password'] },
     });
     res.json(users);

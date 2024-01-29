@@ -13,8 +13,11 @@ loginRouter.post('/', async (req, res) => {
             username: username,
         },
     });
+    if (!user) {
+        res.status(400).json({ error: 'invalid login.' });
+    }
     const passwordMatches = await bcrypt.compare(password, user.password);
-    if (!(user && passwordMatches)) {
+    if (!passwordMatches) {
         res.status(400).json({ error: 'invalid login.' });
     }
     const token = jwt.sign(
