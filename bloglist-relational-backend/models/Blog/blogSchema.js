@@ -10,6 +10,9 @@ const blogSchema = {
     url: {
         type: DataTypes.TEXT,
         allowNull: false,
+        validate: {
+            isUrl: true,
+        },
     },
     title: {
         type: DataTypes.STRING,
@@ -19,6 +22,9 @@ const blogSchema = {
         type: DataTypes.INTEGER,
         defaultValue: 0,
         allowNull: false,
+        validate: {
+            isNumeric: true,
+        },
     },
 };
 

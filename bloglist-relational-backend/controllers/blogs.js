@@ -1,7 +1,7 @@
 const blogRouter = require('express').Router();
 require('express-async-errors');
 
-const Blog = require('../models/Blog');
+const { Blog } = require('../models');
 
 const getBlogByPk = async (req, res, next) => {
     req.blog = await Blog.findByPk(req.params.id);

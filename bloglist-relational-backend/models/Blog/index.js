@@ -1,14 +1,15 @@
 const { Model } = require('sequelize');
-const { blogSchema } = require('./blogSchema');
+
+const blogSchema = require('./blogSchema');
 const { sequelize } = require('../../utils/db');
 
-class Blog extends Model {}
+class BlogModel extends Model {}
 
-Blog.init(blogSchema, {
+BlogModel.init(blogSchema, {
     sequelize,
     underscored: true,
     timestamps: false,
     modelName: 'blog',
 });
 
-module.exports = Blog;
+module.exports = BlogModel;
