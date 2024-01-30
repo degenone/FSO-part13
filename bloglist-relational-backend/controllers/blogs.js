@@ -33,6 +33,7 @@ blogRouter.get('/', async (req, res) => {
         },
         attributes: { exclude: ['userId'] },
         where,
+        order: [['likes', 'DESC']],
     });
     res.json(blogs);
 });
