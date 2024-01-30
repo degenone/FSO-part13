@@ -8,7 +8,6 @@ class BlogModel extends Model {}
 BlogModel.init(blogSchema, {
     sequelize,
     underscored: true,
-    timestamps: false,
     modelName: 'blog',
 });
 
