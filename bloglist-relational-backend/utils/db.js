@@ -15,7 +15,10 @@ const runMigrations = async () => {
     const migrator = new Umzug(migrationConfig);
     const migrations = await migrator.up();
     if (migrations.length > 0) {
-        console.log('Added migrations:', migrations.map((m) => m.name));
+        console.log(
+            'Added migrations:',
+            migrations.map((m) => m.name)
+        );
     } else {
         console.log('No migrations applied.');
     }
