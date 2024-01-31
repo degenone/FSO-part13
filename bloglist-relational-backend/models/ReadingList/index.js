@@ -9,7 +9,7 @@ ReadingListModel.init(readingListSchema, {
     sequelize,
     underscored: true,
     timestamps: false,
-    modelName: 'reading_list',
+    modelName: 'reading_lists',
 });
 
 module.exports = ReadingListModel;

@@ -45,4 +45,20 @@ userRouter.put('/:username', getToken, async (req, res) => {
     res.json({ name: user.name, username: user.username });
 });
 
+userRouter.get('/:id', async (req, res) => {
+    const user = await User.findByPk(req.params.id, {
+        include: {
+            model: Blog,
+            as: 'readings',
+            through: { attributes: [] },
+            attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+        },
+        attributes: ['name', 'username'],
+    });
+    if (user) {
+        return res.json(user);
+    }
+    res.status(404).json({ error: 'user not found' });
+});
+
 module.exports = userRouter;
