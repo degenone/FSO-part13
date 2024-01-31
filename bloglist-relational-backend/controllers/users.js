@@ -46,11 +46,16 @@ userRouter.put('/:username', getToken, async (req, res) => {
 });
 
 userRouter.get('/:id', async (req, res) => {
+    const where = {};
+    const { unread } = req.query;
+    if (unread) {
+        where.unread = unread === 'true';
+    }
     const user = await User.findByPk(req.params.id, {
         include: {
             model: Blog,
             as: 'readings',
-            through: { attributes: ['id', 'unread'] },
+            through: { attributes: ['id', 'unread'], where },
             attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
         },
         attributes: ['name', 'username'],
