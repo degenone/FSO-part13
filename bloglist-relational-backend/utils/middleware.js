@@ -19,7 +19,7 @@ const errorHandler = (error, req, res, next) => {
             .status(400)
             .json({ error: getSequelizeErrorMessages(error) });
     } else if (error.name === 'TokenExpiredError') {
-        return response.status(400).json({ error: 'token expired' });
+        return response.status(400).json({ error: 'expired token' });
     }
     next(error);
 };
