@@ -22,6 +22,10 @@ const userSchema = {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    disabled: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
 };
 
 module.exports = userSchema;

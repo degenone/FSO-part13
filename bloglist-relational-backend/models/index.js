@@ -1,6 +1,7 @@
 const BlogModel = require('./Blog');
-const ReadingListModel = require('./ReadingList');
 const UserModel = require('./User');
+const ReadingListModel = require('./ReadingList');
+const ActiveSessionsModel = require('./ActiveSessions');
 
 UserModel.hasMany(BlogModel);
 BlogModel.belongsTo(UserModel);
@@ -12,9 +13,11 @@ BlogModel.belongsToMany(UserModel, {
     through: ReadingListModel,
     as: 'user_readings',
 });
+ActiveSessionsModel.belongsTo(UserModel);
 
 module.exports = {
     Blog: BlogModel,
     User: UserModel,
     ReadingList: ReadingListModel,
+    ActiveSession: ActiveSessionsModel,
 };

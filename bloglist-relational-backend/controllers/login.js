@@ -3,7 +3,7 @@ require('express-async-errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const { User } = require('../models');
+const { User, ActiveSession } = require('../models');
 const { SECRET } = require('../utils/config');
 
 loginRouter.post('/', async (req, res) => {
@@ -16,16 +16,23 @@ loginRouter.post('/', async (req, res) => {
     if (!user) {
         res.status(400).json({ error: 'invalid login.' });
     }
+    if (user.disabled) {
+        return res.status(401).json({
+            error: 'account disabled, please contact an admin',
+        });
+    }
     const passwordMatches = await bcrypt.compare(password, user.password);
     if (!passwordMatches) {
         res.status(400).json({ error: 'invalid login.' });
     }
+    await ActiveSession.upsert({ userId: user.id, loggedInAt: new Date() });
     const token = jwt.sign(
         {
             username: user.username,
             id: user.id,
         },
-        SECRET
+        SECRET,
+        { expiresIn: 60 * 60 }
     );
     res.json({
         token,
